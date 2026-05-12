@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+instance/
+answers/
+generated_papers/
+uploads/
+.env

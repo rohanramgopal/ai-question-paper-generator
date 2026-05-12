@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block page_title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="stats-grid">
+    <div class="stat-card purple"><div class="stat-icon">📋</div><div><h2>{{ total_questions }}</h2><p>Total Questions</p><span>Question database</span></div></div>
+    <div class="stat-card blue"><div class="stat-icon">👨‍🎓</div><div><h2>{{ total_students }}</h2><p>Students</p><span>Registered learners</span></div></div>
+    <div class="stat-card green"><div class="stat-icon">📄</div><div><h2>{{ total_papers }}</h2><p>Generated Papers</p><span>Assigned exams</span></div></div>
+    <div class="stat-card orange"><div class="stat-icon">✅</div><div><h2>{{ total_submissions }}</h2><p>Submissions</p><span>Answer PDFs</span></div></div>
+</div>
+
+<div class="panel">
+    <h2>Teacher Workflow</h2>
+
+    <div class="workflow">
+        <div class="step"><div class="step-icon purple-bg">➕</div><h4>Add Questions</h4><p>Subject, topic, marks, difficulty</p><span>1</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="step-icon blue-bg">🧠</div><h4>AI Selection</h4><p>Balanced paper generation</p><span>2</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="step-icon green-bg">👨‍🎓</div><h4>Assign Student</h4><p>Different paper for each student</p><span>3</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="step-icon orange-bg">📥</div><h4>Student Downloads</h4><p>Paper appears in student portal</p><span>4</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="step-icon pink-bg">📤</div><h4>Upload Answer</h4><p>Student uploads PDF sheet</p><span>5</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="step-icon cyan-bg">✅</div><h4>Correction</h4><p>Admin grades submission</p><span>6</span></div>
+    </div>
+</div>
+
+<div class="bottom-grid">
+    <div class="panel">
+        <h2>Difficulty Distribution</h2>
+        <div class="difficulty-box">
+            <div class="donut"></div>
+            <div class="difficulty-list">
+                <p><b class="dot green-dot"></b> Easy: {{ easy_count }}</p>
+                <p><b class="dot blue-dot"></b> Medium: {{ medium_count }}</p>
+                <p><b class="dot pink-dot"></b> Hard: {{ hard_count }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>Recent Papers</h2>
+        {% for paper in recent_papers %}
+            <div class="paper-row">
+                <div>📄</div>
+                <div>
+                    <strong>{{ paper.exam_title }}</strong>
+                    <p>{{ paper.subject }} • {{ paper.generated_marks }} Marks</p>
+                </div>
+            </div>
+        {% else %}
+            <p class="empty">No papers generated yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="panel">
+        <h2>Quick Actions</h2>
+        <div class="quick-grid">
+            <a href="/add-question">➕<span>Add Question</span></a>
+            <a href="/questions">📚<span>Question Bank</span></a>
+            <a href="/generate">📄<span>Assign Paper</span></a>
+            <a href="/submissions">✅<span>Submissions</span></a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block page_title %}Student Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="stats-grid">
+    <div class="stat-card blue"><div class="stat-icon">📄</div><div><h2>{{ papers|length }}</h2><p>Assigned Papers</p><span>Your tests</span></div></div>
+    <div class="stat-card green"><div class="stat-icon">📤</div><div><h2>{{ submissions|length }}</h2><p>Submitted Answers</p><span>PDF uploads</span></div></div>
+</div>
+
+<div class="panel">
+    <h2>My Assigned Question Papers</h2>
+    <p>Download your paper, write answers, scan as PDF and upload answer sheet.</p>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Exam</th>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Question Paper</th>
+                    <th>Answer Upload</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for paper in papers %}
+                <tr>
+                    <td>{{ paper.exam_title }}</td>
+                    <td>{{ paper.subject }}</td>
+                    <td>{{ paper.generated_marks }}</td>
+                    <td>
+                        <a class="btn small-btn" href="/download-paper/{{ paper.pdf_file }}">Download Paper</a>
+                    </td>
+                    <td>
+                        {% if paper.id in submitted_paper_ids %}
+                            Already Uploaded
+                        {% else %}
+                            <form method="POST" action="/upload-answer/{{ paper.id }}" enctype="multipart/form-data">
+                                <input type="file" name="answer_pdf" accept="application/pdf" required>
+                                <button class="btn small-btn">Upload PDF</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if paper.id in submitted_paper_ids %}
+                            <span class="badge easy">Submitted</span>
+                        {% else %}
+                            <span class="badge hard">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6">No papers assigned yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="panel">
+    <h2>My Results / Feedback</h2>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Submission ID</th>
+                    <th>Answer PDF</th>
+                    <th>Marks</th>
+                    <th>Feedback</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for sub in submissions %}
+                <tr>
+                    <td>{{ sub.id }}</td>
+                    <td><a href="/download-answer/{{ sub.answer_pdf }}">Download My Answer</a></td>
+                    <td>{{ sub.marks_obtained }}</td>
+                    <td>{{ sub.feedback }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">No submissions yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

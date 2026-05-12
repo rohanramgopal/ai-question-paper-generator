@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block page_title %}Student Submissions{% endblock %}
+
+{% block content %}
+
+<div class="panel">
+    <h2>Student Answer Sheet Submissions</h2>
+    <p>Download answer PDFs, correct them and enter marks with feedback.</p>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student</th>
+                    <th>Paper</th>
+                    <th>Answer PDF</th>
+                    <th>Marks</th>
+                    <th>Feedback</th>
+                    <th>Correct</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for sub in submissions %}
+                    {% set student = users|selectattr("id", "equalto", sub.student_id)|first %}
+                    {% set paper = papers|selectattr("id", "equalto", sub.paper_id)|first %}
+
+                    <tr>
+                        <td>{{ sub.id }}</td>
+                        <td>{{ student.full_name if student else "Unknown" }}</td>
+                        <td>{{ paper.exam_title if paper else "Unknown Paper" }}</td>
+                        <td>
+                            <a class="btn small-btn" href="/download-answer/{{ sub.answer_pdf }}">Download Answer</a>
+                        </td>
+                        <td>{{ sub.marks_obtained }}</td>
+                        <td>{{ sub.feedback }}</td>
+                        <td>
+                            <form method="POST" action="/grade-submission/{{ sub.id }}">
+                                <input type="number" name="marks_obtained" placeholder="Marks" required>
+                                <textarea name="feedback" rows="2" placeholder="Feedback"></textarea>
+                                <button class="btn small-btn">Save</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">No answer sheets uploaded yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

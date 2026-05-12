@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-card">
+    <h1>Add Question</h1>
+
+    <form method="POST">
+        <label>Subject</label>
+        <input type="text" name="subject" placeholder="Example: Computer Science" required>
+
+        <label>Topic</label>
+        <input type="text" name="topic" placeholder="Example: Python, DBMS, Cybersecurity" required>
+
+        <label>Question</label>
+        <textarea name="question_text" rows="5" placeholder="Enter the question here..." required></textarea>
+
+        <label>Marks</label>
+        <select name="marks" required>
+            <option value="2">2 Marks</option>
+            <option value="5">5 Marks</option>
+            <option value="10">10 Marks</option>
+        </select>
+
+        <label>Difficulty</label>
+        <select name="difficulty" required>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
+
+        <label>Bloom Level</label>
+        <select name="bloom_level">
+            <option value="Remember">Remember</option>
+            <option value="Understand">Understand</option>
+            <option value="Apply">Apply</option>
+            <option value="Analyze">Analyze</option>
+            <option value="Create">Create</option>
+        </select>
+
+        <button type="submit" class="btn full">Add Question</button>
+    </form>
+</div>
+
+{% endblock %}

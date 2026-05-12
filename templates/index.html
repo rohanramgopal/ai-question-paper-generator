@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero">
+    <div>
+        <h1>AI Powered Automated Question Paper Generator</h1>
+        <p>
+            Generate balanced, syllabus-based, difficulty-controlled question papers within seconds.
+        </p>
+        <a href="/generate" class="btn">Generate Question Paper</a>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="card">
+        <h2>{{ total_questions }}</h2>
+        <p>Total Questions</p>
+    </div>
+
+    <div class="card">
+        <h2>{{ subjects }}</h2>
+        <p>Subjects</p>
+    </div>
+
+    <div class="card">
+        <h2>{{ topics }}</h2>
+        <p>Topics</p>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Core Features</h2>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>AI-Based Selection</h3>
+            <p>Selects questions intelligently based on subject, topic, marks, and difficulty.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Difficulty Balance</h3>
+            <p>Supports Easy, Medium, and Hard level question distribution.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Syllabus Coverage</h3>
+            <p>Ensures questions are selected from required topics.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>PDF Export</h3>
+            <p>Download generated question paper as a professional PDF.</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

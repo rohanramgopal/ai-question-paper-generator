@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Question Bank</h1>
+
+<form method="GET" class="search-box">
+    <input type="text" name="search" value="{{ search }}" placeholder="Search by subject, topic, or difficulty">
+    <button class="btn">Search</button>
+</form>
+
+<div class="table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Subject</th>
+                <th>Topic</th>
+                <th>Question</th>
+                <th>Marks</th>
+                <th>Difficulty</th>
+                <th>Bloom</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for q in questions %}
+            <tr>
+                <td>{{ q.id }}</td>
+                <td>{{ q.subject }}</td>
+                <td>{{ q.topic }}</td>
+                <td>{{ q.question_text }}</td>
+                <td>{{ q.marks }}</td>
+                <td>
+                    <span class="badge {{ q.difficulty|lower }}">
+                        {{ q.difficulty }}
+                    </span>
+                </td>
+                <td>{{ q.bloom_level }}</td>
+                <td>
+                    <a href="/delete-question/{{ q.id }}" class="delete-btn">Delete</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8">No questions found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

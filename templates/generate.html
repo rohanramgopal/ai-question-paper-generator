@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-card">
+    <h1>Generate Question Paper</h1>
+
+    <form method="POST">
+        <label>Exam Title</label>
+        <input type="text" name="exam_title" placeholder="Example: Internal Assessment - 1" required>
+
+        <label>Subject</label>
+        <select name="subject" required>
+            {% for subject in subjects %}
+                <option value="{{ subject }}">{{ subject }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Select Topics</label>
+        <div class="checkbox-group">
+            {% for topic in topics %}
+                <label class="check">
+                    <input type="checkbox" name="topics" value="{{ topic }}">
+                    {{ topic }}
+                </label>
+            {% endfor %}
+        </div>
+
+        <label>Total Marks</label>
+        <input type="number" name="total_marks" value="25" required>
+
+        <div class="three-grid">
+            <div>
+                <label>Easy Questions</label>
+                <input type="number" name="easy_count" value="3" required>
+            </div>
+
+            <div>
+                <label>Medium Questions</label>
+                <input type="number" name="medium_count" value="2" required>
+            </div>
+
+            <div>
+                <label>Hard Questions</label>
+                <input type="number" name="hard_count" value="1" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn full">Generate Paper</button>
+    </form>
+</div>
+
+{% endblock %}

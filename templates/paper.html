@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="paper-card">
+    <div class="paper-header">
+        <h1>{{ exam_title }}</h1>
+        <p><strong>Subject:</strong> {{ subject }}</p>
+        <p><strong>Topics:</strong> {{ topics|join(", ") }}</p>
+        <p><strong>Total Marks:</strong> {{ total_marks }}</p>
+        <p><strong>Generated Marks:</strong> {{ achieved_marks }}</p>
+    </div>
+
+    <hr>
+
+    <ol class="paper-list">
+        {% for q in questions %}
+        <li>
+            <div class="question-line">
+                <span>{{ q.question_text }}</span>
+                <strong>[{{ q.marks }} Marks]</strong>
+            </div>
+
+            <div class="meta">
+                Difficulty: {{ q.difficulty }} | Bloom Level: {{ q.bloom_level }} | Topic: {{ q.topic }}
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
+
+    <form method="POST" action="/download-pdf">
+        <input type="hidden" name="exam_title" value="{{ exam_title }}">
+        <input type="hidden" name="subject" value="{{ subject }}">
+        <input type="hidden" name="total_marks" value="{{ total_marks }}">
+
+        {% for q in questions %}
+            <input type="hidden" name="question_ids" value="{{ q.id }}">
+        {% endfor %}
+
+        <button class="btn">Download PDF</button>
+    </form>
+</div>
+
+{% endblock %}
