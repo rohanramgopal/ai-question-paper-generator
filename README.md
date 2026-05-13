@@ -1,6 +1,4 @@
-cd ~/ai-question-paper-generator
 
-cat > README.md <<'EOF'
 # 🧠 AI Powered Automated Question Paper Generator
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
